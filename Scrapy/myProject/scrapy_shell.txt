@@ -1,0 +1,243 @@
+PS C:\Users\Ritik Tanwar\Documents\python learning\Scrapy\myProject> scrapy shell 'http://quotes.toscrape.com/page/1/'
+c:\python37\lib\site-packages\scrapy\spiderloader.py:37: UserWarning: There are several spiders with the same name:
+
+  QuotesSpider named 'quotes_spider' (in myProject.spiders.quotes_spider)
+  QuotesSpider named 'quotes_spider' (in myProject.spiders.xyz)
+
+  This can cause unexpected behavior.
+  warnings.warn(
+2021-01-21 22:37:11 [scrapy.utils.log] INFO: Scrapy 2.4.1 started (bot: myProject)
+2021-01-21 22:37:11 [scrapy.utils.log] INFO: Versions: lxml 4.6.2.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 20.3.0, Python 3.9.1 (tags/v3.9.1:1e5d33e, Dec  7 2020, 17:08:21) [MSC v.1927 64 bit (AMD64)], pyOpenSSL 20.0.1 (OpenSSL 1.1.1i  8 Dec 2020), cryptography 3.3.1, Platform Windows-10-10.0.19041-SP0
+2021-01-21 22:37:11 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.selectreactor.SelectReactor
+2021-01-21 22:37:11 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'myProject',
+ 'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter',      
+ 'LOGSTATS_INTERVAL': 0,
+ 'NEWSPIDER_MODULE': 'myProject.spiders',
+ 'ROBOTSTXT_OBEY': True,
+ 'SPIDER_MODULES': ['myProject.spiders']}
+2021-01-21 22:37:11 [scrapy.extensions.telnet] INFO: Telnet Password: 1c502b2ee9a331da
+2021-01-21 22:37:11 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole']
+2021-01-21 22:37:11 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2021-01-21 22:37:11 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2021-01-21 22:37:11 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2021-01-21 22:37:11 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2021-01-21 22:37:12 [scrapy.core.engine] INFO: Spider opened
+2021-01-21 22:37:12 [scrapy.core.engine] DEBUG: Crawled (404) <GET http://quotes.toscrape.com/robots.txt> (referer: None)   
+2021-01-21 22:37:13 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://quotes.toscrape.com/page/1/> (referer: None)      
+2021-01-21 22:37:14 [asyncio] DEBUG: Using proactor: IocpProactor
+[s] Available Scrapy objects:
+[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
+[s]   crawler    <scrapy.crawler.Crawler object at 0x000002C7735C81F0>
+[s]   item       {}
+[s]   request    <GET http://quotes.toscrape.com/page/1/>
+[s]   response   <200 http://quotes.toscrape.com/page/1/>
+[s]   settings   <scrapy.settings.Settings object at 0x000002C7735C87F0>
+[s]   spider     <DefaultSpider 'default' at 0x2c7735cbc10>
+[s] Useful shortcuts:
+[s]   fetch(url[, redirect=True]) Fetch URL and update local objects (by default, redirects are followed)
+[s]   fetch(req)                  Fetch a scrapy.Request and update local objects
+[s]   shelp()           Shell help (print this help)
+[s]   view(response)    View response in a browser
+2021-01-21 22:37:14 [asyncio] DEBUG: Using proactor: IocpProactor
+In [1]: response
+Out[1]: <200 http://quotes.toscrape.com/page/1/>
+
+In [2]: response.css('title')
+Out[2]: [<Selector xpath='descendant-or-self::title' data='<title>Quotes to Scrape</title>'>]
+
+In [3]: response.css('title').getall()
+Out[3]: ['<title>Quotes to Scrape</title>']
+
+In [4]: response.css('title::text').getAll()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-4-f1bef498f920> in <module>
+----> 1 response.css('title::text').getAll()
+
+AttributeError: 'SelectorList' object has no attribute 'getAll'
+
+In [5]: response.css('title::text').getall()
+Out[5]: ['Quotes to Scrape']
+
+In [6]: response.css('title::text').getall()[0]
+Out[6]: 'Quotes to Scrape'
+
+In [7]: response.css('title::text').get()
+Out[7]: 'Quotes to Scrape'
+
+In [8]: response.css('div.quote').get()
+Out[8]: '<div class="quote" itemscope itemtype="http://schema.org/CreativeWork">\n        <span class="text" itemprop="text">“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”</span>\n        <span>by <small class="author" itemprop="author">Albert Einstein</small>\n        <a href="/author/Albert-Einstein">(about)</a>\n        </span>\n        <div class="tags">\n            Tags:\n            <meta class="keywords" itemprop="keywords" content="change,deep-thoughts,thinking,world"> \n            \n            <a class="tag" href="/tag/change/page/1/">change</a>\n            \n            <a class="tag" href="/tag/deep-thoughts/page/1/">deep-thoughts</a>\n            \n  
+          <a class="tag" href="/tag/thinking/page/1/">thinking</a>\n            \n            <a class="tag" href="/tag/world/page/1/">world</a>\n            \n        </div>\n    </div>'
+
+In [9]: quote=response.css('div.qoute').get()
+
+In [10]: title=quote.css('span.text').get()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-10-b7e01606572b> in <module>
+----> 1 title=quote.css('span.text').get()
+
+AttributeError: 'NoneType' object has no attribute 'css'
+
+In [11]: quote=response.css('div.quote')[0]
+
+In [12]: title=quote.css('span.text').get()
+
+In [13]: print(title)
+<span class="text" itemprop="text">“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”</span>
+
+In [14]: title=quote.css('span.text::text').get()
+
+In [15]: print(title)
+“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”
+
+In [16]: author=quote.css('span')[1]
+
+In [17]: author
+Out[17]: <Selector xpath='descendant-or-self::span' data='<span>by <small class="author" itempr...'>
+
+In [18]: author=author.css('span::text')[0]
+
+In [19]: author
+Out[19]: <Selector xpath='descendant-or-self::span/text()' data='by '>
+
+In [20]: print(author)
+<Selector xpath='descendant-or-self::span/text()' data='by '>
+
+In [21]: author=quote.css('span')[1]
+
+In [22]: author=author.css('small::text').get()
+
+In [23]: author
+Out[23]: 'Albert Einstein'
+
+In [24]: tags=quote.css('a.tag::text').getall()
+
+In [25]: tags
+Out[25]: ['change', 'deep-thoughts', 'thinking', 'world']
+
+In [26]: for q in response.css('div.quote').getall():
+    ...:     quote=q.css('span.text::text').get()
+    ...:     print(quote)
+    ...: 
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-26-3d367f3764ca> in <module>
+      1 for q in response.css('div.quote').getall():
+----> 2     quote=q.css('span.text::text').get()
+      3     print(quote)
+      4 
+
+AttributeError: 'str' object has no attribute 'css'
+
+In [27]: for q in response.css('div.quote'):
+    ...:     quote=q.css('span.text::text').get()
+    ...:     print(quote)
+    ...: 
+“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”
+“It is our choices, Harry, that show what we truly are, far more than our abilities.”
+“There are only two ways to live your life. One is as though nothing is a miracle. The other is as though everything is a miracle.”
+“The person, be it gentleman or lady, who has not pleasure in a good novel, must be intolerably stupid.”
+“Imperfection is beauty, madness is genius and it's better to be absolutely ridiculous than absolutely boring.”
+“Try not to become a man of success. Rather become a man of value.”
+“It is better to be hated for what you are than to be loved for what you are not.”
+“I have not failed. I've just found 10,000 ways that won't work.”
+“A woman is like a tea bag; you never know how strong it is until it's in hot water.”
+“A day without sunshine is like, you know, night.”
+
+In [29]: response.css('li.next a').get()
+Out[29]: '<a href="/page/2/">Next <span aria-hidden="true">→</span></a>'
+
+In [30]: response.css('li.next a::text').get()
+Out[30]: 'Next '
+
+In [31]: response.css('li.next a::attr').get()
+---------------------------------------------------------------------------
+ExpressionError                           Traceback (most recent call last)
+<ipython-input-31-537b34cfe749> in <module>
+----> 1 response.css('li.next a::attr').get()
+
+c:\python37\lib\site-packages\scrapy\http\response\text.py in css(self, query)
+    140 
+    141     def css(self, query):
+--> 142         return self.selector.css(query)
+    143 
+    144     def follow(self, url, callback=None, method='GET', headers=None, body=None,
+
+c:\python37\lib\site-packages\parsel\selector.py in css(self, query)
+    280         .. _cssselect: https://pypi.python.org/pypi/cssselect/
+    281         """
+--> 282         return self.xpath(self._css2xpath(query))
+    283
+    284     def _css2xpath(self, query):
+
+c:\python37\lib\site-packages\parsel\selector.py in _css2xpath(self, query)
+    283 
+    284     def _css2xpath(self, query):
+--> 285         return self._csstranslator.css_to_xpath(query)
+    286 
+    287     def re(self, regex, replace_entities=True):
+
+c:\python37\lib\site-packages\parsel\csstranslator.py in css_to_xpath(self, css, prefix)
+    105     @lru_cache(maxsize=256)
+    106     def css_to_xpath(self, css, prefix='descendant-or-self::'):
+--> 107         return super(HTMLTranslator, self).css_to_xpath(css, prefix)
+    108
+    109
+
+c:\python37\lib\site-packages\cssselect\xpath.py in css_to_xpath(self, css, prefix)
+    188 
+    189         """
+--> 190         return ' | '.join(self.selector_to_xpath(selector, prefix,
+    191                                                  translate_pseudo_elements=True)
+    192                           for selector in parse(css))
+
+c:\python37\lib\site-packages\cssselect\xpath.py in <genexpr>(.0)
+    188
+    189         """
+--> 190         return ' | '.join(self.selector_to_xpath(selector, prefix,
+    191                                                  translate_pseudo_elements=True)
+    192                           for selector in parse(css))
+
+c:\python37\lib\site-packages\cssselect\xpath.py in selector_to_xpath(self, selector, prefix, translate_pseudo_elements)
+    220         assert isinstance(xpath, self.xpathexpr_cls)  # help debug a missing 'return'
+    221         if translate_pseudo_elements and selector.pseudo_element:
+--> 222             xpath = self.xpath_pseudo_element(xpath, selector.pseudo_element)
+    223         return (prefix or '') + _unicode(xpath)
+    224
+
+c:\python37\lib\site-packages\parsel\csstranslator.py in xpath_pseudo_element(self, xpath, pseudo_element)
+     75             method = _unicode_safe_getattr(self, method, None)
+     76             if not method:
+---> 77                 raise ExpressionError(
+     78                     "The pseudo-element ::%s is unknown"
+     79                     % pseudo_element)
+
+ExpressionError: The pseudo-element ::attr is unknown
+
+In [32]: response.css('li.next a::attr(href)').get()
+Out[32]: '/page/2/'
+
+In [33]: response.css('li.next a').attrib['href']
+Out[33]: '/page/2/'

@@ -1,0 +1,1 @@
+{"item_title": "Ikea ADDE Chair Indoor/Outdoor Back Rest (Standard, Grey", "item_mrp": [" \u20b9\u00a01,995.00"], "item_price": "\u20b9\u00a01,153.00", "item_description": ["\nComfortable chairs that can be stacked and take less space.\n\n", "\nEasy to assemble and provide a sturdy seat for the occupant.\n\n"], "item_delivery": ["<b>Feb 1 - 4 </b>"], "item_saving": null}

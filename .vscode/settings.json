@@ -1,0 +1,10 @@
+{
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "git.ignoreLimitWarning": true,
+    "python.formatting.provider": "autopep8",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
+}
